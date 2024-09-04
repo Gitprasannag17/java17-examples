@@ -1,14 +1,14 @@
 pipeline {
     agent { label 'JAVA17_MVN3.9.4' }
     triggers { 
-        cron('*/2 * * * 1-5')
+        cron('*/2 * * * 0')
         pollSCM('*/5 * * * *')
     }    
     stages {
         stage('scm') {
             steps {
                 git 'https://github.com/Gitprasannag17/java17-examples.git'
-                input message: 'Continue to the next stage?', submitter: 'devops'
+                input message: 'Continue to the next stage?', submitter: 'devop'
             }
         }
         stage('build') {
