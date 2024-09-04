@@ -1,10 +1,14 @@
 pipeline {
     agent { label 'JAVA17_MVN3.9.4' }
-    triggers { upstream(upstreamProjects: 'starter-project', threshold: hudson.model.Result.SUCCESS) }
+    triggers { 
+        cron('*/2 * * * 1-5')
+        pollSCM('*/5 * * * *')
+    }    
     stages {
         stage('scm') {
             steps {
                 git 'https://github.com/Gitprasannag17/java17-examples.git'
+                input message: 'Continue to the next stage?', submitter: 'devops'
             }
         }
         stage('build') {
