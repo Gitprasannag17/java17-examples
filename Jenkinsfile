@@ -1,4 +1,5 @@
 node('JAVA17_MVN3.9.4') {
+    properties([pipelineTriggers([upstream('starter-project, ')])])
     stage('git') {
         git 'https://github.com/Gitprasannag17/java17-examples.git'
     }
