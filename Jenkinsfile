@@ -1,14 +1,18 @@
 pipeline {
     agent { label 'JAVA17_MVN3.9.4' } 
+    parameters {
+        string(name: 'MAVEN_GOAL', defaultValue: 'package', description: 'This is maven goal' )
+        choice(name: 'BRANCH_TO_BUILD', choices: ['declarative', 'master', 'scripted'], description: 'Branch to build')
+    }    
     stages {
         stage('scm') {
             steps {
-                git 'https://github.com/Gitprasannag17/java17-examples.git'
+                git url: 'https://github.com/Gitprasannag17/java17-examples.git', branch: "${params.BRANCH_TO_BUILD}"
             }
         }
         stage('build') {
             steps {
-                sh '/usr/local/apache-maven-3.9.4/bin/mvn clean package'
+                sh "/usr/local/apache-maven-3.9.4/bin/mvn ${params.MAVEN_GOAL}"
             }
         }
     }
