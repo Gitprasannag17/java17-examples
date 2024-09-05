@@ -16,4 +16,13 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            mail from: "devopsadmin@fake.com",
+                to: 'team@fake.com',
+                subject: "Status of the pipeline ${currentBuild.fullDisplayName}",
+                body: "${env.BUILD_URL} has a result ${currentBuild.result}"
+
+        }
+    }    
 }
