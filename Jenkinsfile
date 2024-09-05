@@ -8,7 +8,7 @@ pipeline {
         stage('scm') {            
             steps {
                 mail from: "devopsadmin@fake.com",
-                to: 'team@fake.com',
+                to: 'pras@gmail.com',
                 subject: "Cloning code for project ${env.JOB_NAME} started",
                 body: "${env.BUILD_URL}"
 
@@ -18,7 +18,7 @@ pipeline {
         stage('build') {
             steps {
                 mail from: "devopsadmin@fake.com",
-                to: 'team@fake.com',
+                to: 'pras@fake.com',
                 subject: "Build using maven for project ${env.JOB_NAME} started",
                 body: "${env.BUILD_URL}"               
 
@@ -34,7 +34,7 @@ pipeline {
                 </a>"</p> <p><i>Build log is attached </i> </p>""",
                 compressLog: true,
                 replyTo: "do-not-reply@fake.com",
-                to: "pras@gmail.com",
+                to: "team@gmail.com",
                 subject: "${env.JOB_NAME} - Build ${env.BUILD_NUMBER} -Status ${currentBuild.result}"
         }
     }   
