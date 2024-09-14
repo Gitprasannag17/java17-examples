@@ -1,0 +1,35 @@
+name: java17-example-yaml-pipeline
+trigger:
+  - master
+pool: default
+schedules:
+  - cron: '*/30 * * * *'
+    displayName: 'Day build'
+    branches:
+      include: 
+        - master
+      exclude:
+        - declarative
+    always: false
+  - cron: '30 23 * * 1-5'
+    displayName: 'Night build'
+    branches:
+      include: 
+        - master
+      exclude:
+        - scripted
+    always: true
+stages:
+  - stage: 'Build' 
+    displayName: 'Build jdk17 project'
+    jobs:
+      - job: 'buildjob'
+        displayName: 'Build the job'
+        continueOnError: false
+        workspace:
+          clean: outputs
+        steps:
+          - task: Maven@3
+            inputs:
+              mavenPomFile: 'pom.xml'
+              goals: 'package'
