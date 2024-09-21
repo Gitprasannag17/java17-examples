@@ -19,3 +19,9 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'JaCoCo'  # or 'Cobertura', depending on your tool
+    summaryFileLocation: 'target/site/jacoco/jacoco-s.exec'  # Adjust the path as necessary
+    reportDirectory: 'target/site/jacoco'  # Adjust to where the report is generated
+    failIfCoverageEmpty: false  # Optional: fail the build if no coverage is found
