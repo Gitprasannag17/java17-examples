@@ -9,6 +9,14 @@ trigger:
 pool: Prasdevops
 
 steps:
+
+- bash: |
+    echo $(date +%Y)
+    echo '##vso[task.setvariable variable=buildName]$(date +%Y)_$(date +%m)_$(Build.BuildNumber)_v3.7'
+
+- bash: |
+    echo $(buildName)
+    
 - task: Maven@4
   inputs:
     mavenPomFile: 'pom.xml'
