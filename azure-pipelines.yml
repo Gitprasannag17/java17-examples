@@ -11,9 +11,6 @@ pool: Prasdevops
 steps:
 
 - bash: |
-    echo $(date +%Y)
-    whoami
-    pwd
     echo '##vso[task.setvariable variable=buildName]$(date +%Y)_$(date +%m)_$(Build.BuildNumber)_v3.7'
 
 - bash: |
@@ -32,6 +29,6 @@ steps:
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'JaCoCo'  # or 'Cobertura', depending on your tool
-    summaryFileLocation: 'target/site/jacoco/jacoco-s.exec'  # Adjust the path as necessary
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/target/site/jacoco/jacoco-s.exec'  # Adjust the path as necessary
     reportDirectory: 'target/site/jacoco'  # Adjust to where the report is generated
     failIfCoverageEmpty: false  # Optional: fail the build if no coverage is found
