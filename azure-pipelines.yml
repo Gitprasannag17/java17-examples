@@ -6,7 +6,8 @@
 trigger:
 - master
 
-pool: Prasdevops
+pool:
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: Maven@4
