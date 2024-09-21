@@ -8,6 +8,14 @@ trigger:
 
 pool: Prasdevops
 
+strategy:
+  matrix:
+    jdk17:
+      jdkVersion: "1.17"
+    jdk11:
+      jdkVersion: "1.11"
+  maxParallel: 1
+
 steps:
 
 - bash: |
@@ -21,14 +29,8 @@ steps:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
     javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.17'
+    jdkVersionOption: $(jdkVersion)
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: 'JaCoCo'  # or 'Cobertura', depending on your tool
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/target/site/jacoco/jacoco-s.exec'  # Adjust the path as necessary
-    reportDirectory: 'target/site/jacoco'  # Adjust to where the report is generated
-    failIfCoverageEmpty: false  # Optional: fail the build if no coverage is found
